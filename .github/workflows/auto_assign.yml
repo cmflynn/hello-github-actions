@@ -9,4 +9,7 @@ jobs:
     steps:
       - uses: kentaro-m/auto-assign-action@v1.2.0
         with:
+          # A list of reviewers to be added to pull requests (GitHub user name)
+          reviewers:
+            - cmflynn
           configuration-path: ".github/workflows/auto_assign_config.yml" # Only needed if you use something other than .github/auto_assign.yml
