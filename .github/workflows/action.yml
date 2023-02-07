@@ -8,4 +8,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event.release.name }}
+      - run: |
+          echo ${{ github.event.release.name }}
+          echo "${GITHUB_REF#refs/*/}"
