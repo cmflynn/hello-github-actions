@@ -6,6 +6,6 @@ on:
 
 jobs:
   deploy:
-    uses: ./.github/workflows/called.yml.
+    uses: ./.github/workflows/called.yml
     with:
       version: ${GITHUB_REF#refs/*/}
