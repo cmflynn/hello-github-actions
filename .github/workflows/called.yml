@@ -1,0 +1,12 @@
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        default: 'latest'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - run: echo ${{ inputs.version }}
