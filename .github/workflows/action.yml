@@ -16,6 +16,7 @@ jobs:
           issue-body: "Please approve or deny the deployment of version v1.3.5."
           exclude-workflow-initiator-as-approver: false
   deploy:
+    needs: get_approval
     uses: ./.github/workflows/called.yml
     with:
       version: ${{ github.event.release.tag_name }}
