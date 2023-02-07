@@ -8,4 +8,4 @@ jobs:
   deploy:
     uses: ./.github/workflows/called.yml
     with:
-      version: ${GITHUB_REF#refs/*/}
+      version: ${{ github.events.release.tag_name }}
