@@ -10,3 +10,5 @@ jobs:
     runs-on: ubuntu-latest # windows-latest | macos-latest
     steps:
       - run: echo ${{ inputs.version }}
+
+      - run: echo ls -al
