@@ -11,4 +11,6 @@ jobs:
     steps:
       - run: echo ${{ inputs.version }}
 
-      - run: echo ls -al
+      - run: echo $(ls -al)
+
+      - run: ls -al
