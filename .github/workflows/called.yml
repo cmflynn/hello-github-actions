@@ -9,8 +9,13 @@ jobs:
   run:
     runs-on: ubuntu-latest # windows-latest | macos-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - run: echo ${{ inputs.version }}
 
       - run: echo $(ls -al)
 
       - run: ls -al
+
+      - run: pwd
