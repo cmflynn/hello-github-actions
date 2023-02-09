@@ -20,7 +20,7 @@ jobs:
         uses: tj-actions/changed-files@v35
         with:
           files: |
-            services/${{ inputs.service_name }}/**
+            ${{ inputs.service_name }}/**
 
       - name: List changes
         run: |
