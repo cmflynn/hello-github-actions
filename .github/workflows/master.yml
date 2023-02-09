@@ -1,0 +1,32 @@
+name: Release QA
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get ${{ inputs.service_name }} changes
+        id: get_changes
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ${{ matrix.target }}/**
+            .github/**
+
+      - name: List changes
+        run: |
+          echo "${{ steps.get_changes.outputs.all_changed_files }}"
+          echo "${{ steps.get_changes.outputs.any_changed }}"
+      - name: Deploy
+        if: steps.get_changes.outputs.any_changed == 'true'
+        run: echo deploy ${{ matrix.target }}
+
+    outputs:
+      changed: ${{ steps.get_changes.outputs.any_changed }}
