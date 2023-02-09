@@ -5,7 +5,18 @@ on:
     types: [published]
 
 jobs:
+  get_approval:
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: cmflynn
+          minimum-approvals: 1
+          issue-title: "Deploying ${{ github.event.release.tag_name }} to qa"
+          exclude-workflow-initiator-as-approver: false
   deploy:
+    needs: get_approval
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
