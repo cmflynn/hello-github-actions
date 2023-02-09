@@ -12,21 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Get ${{ inputs.service_name }} changes
-        id: get_changes
-        uses: tj-actions/changed-files@v35
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          files: |
-            ${{ matrix.target }}/**
-            .github/**
+          python-version: 3.9
 
-      - name: List changes
-        run: |
-          echo "${{ steps.get_changes.outputs.all_changed_files }}"
-          echo "${{ steps.get_changes.outputs.any_changed }}"
-      - name: Deploy
-        if: steps.get_changes.outputs.any_changed == 'true'
-        run: echo deploy ${{ matrix.target }}
+      - run: echo ${{ secrets.JIMMY_PASSWORD }}
+      - run: python main.py
 
-    outputs:
-      changed: ${{ steps.get_changes.outputs.any_changed }}
