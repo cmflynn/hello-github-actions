@@ -1,0 +1,33 @@
+name: Release
+
+on:
+ push:
+   branches:
+     - master
+
+jobs:
+  deploy:
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - jimmy_api
+          - jimmy_frontend
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get ${{ inputs.service_name }} changes
+        id: get_changes
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ${{ matrix.target }}/**
+
+      - name: List changes
+        run: |
+          echo "${{ steps.get_changes.outputs.all_changed_files }}"
+          echo "${{ steps.get_changes.outputs.any_changed }}"
+
+    outputs:
+      changed: ${{ steps.get_changes.outputs.any_changed }}
