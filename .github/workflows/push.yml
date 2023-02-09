@@ -24,11 +24,15 @@ jobs:
         with:
           files: |
             ${{ matrix.target }}/**
+            .github/**
 
       - name: List changes
         run: |
           echo "${{ steps.get_changes.outputs.all_changed_files }}"
           echo "${{ steps.get_changes.outputs.any_changed }}"
+      - name: Deploy
+        if: steps.get_changed.outputs.any_changed == 'true
+        run: echo deploy ${{ matrix.target }}
 
     outputs:
       changed: ${{ steps.get_changes.outputs.any_changed }}
