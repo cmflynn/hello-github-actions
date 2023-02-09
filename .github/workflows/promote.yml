@@ -33,7 +33,7 @@ jobs:
           echo "${{ steps.get_changes.outputs.all_changed_files }}"
           echo "${{ steps.get_changes.outputs.any_changed }}"
       - name: Deploy
-        if: steps.get_changes.outputs.any_changed
+        if: steps.get_changes.outputs.any_changed == 'true'
         run: echo promote ${{ matrix.target }}
 
     outputs:
