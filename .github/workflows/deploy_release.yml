@@ -1,4 +1,4 @@
-name: Release (QA)
+name: Release QA
 
 on:
   release:
