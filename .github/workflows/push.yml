@@ -31,7 +31,7 @@ jobs:
           echo "${{ steps.get_changes.outputs.all_changed_files }}"
           echo "${{ steps.get_changes.outputs.any_changed }}"
       - name: Deploy
-        if: steps.get_changes.outputs.any_changed == 'true'
+        if: steps.get_changes.outputs.any_changed
         run: echo deploy ${{ matrix.target }}
 
     outputs:
