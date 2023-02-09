@@ -5,7 +5,6 @@ on:
     branches:
       - uat
 
-
 jobs:
   promote:
     runs-on: ubuntu-latest
@@ -21,8 +20,7 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-      - name: Get ${{ inputs.service_name }} changes
-        id: get_changes
+      - id: get_changes
         uses: tj-actions/changed-files@v35
         with:
           files: |
@@ -35,7 +33,9 @@ jobs:
           echo "${{ steps.get_changes.outputs.any_changed }}"
       - name: Deploy
         if: steps.get_changes.outputs.any_changed == 'true'
-        run: echo promote ${{ matrix.target }}
+        run: |
+          echo promote ${{ matrix.target }}
+          echo ${{ github.ref_name }}
 
     outputs:
       changed: ${{ steps.get_changes.outputs.any_changed }}
