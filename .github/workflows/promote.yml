@@ -1,8 +1,9 @@
-name: Promote QA -> UAT
+name: Promote
 
 on:
   push:
-    branches: uat
+    branches:
+      - uat
 
 
 jobs:
