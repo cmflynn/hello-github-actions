@@ -33,7 +33,9 @@ jobs:
           echo "${{ steps.get_changes.outputs.any_changed }}"
       - name: Deploy
         if: steps.get_changes.outputs.any_changed == 'true'
-        run: echo promote ${{ matrix.target }}
+        run: |
+          echo promote ${{ matrix.target }}
+          echo ${{ github.ref_name }}
 
     outputs:
       changed: ${{ steps.get_changes.outputs.any_changed }}
