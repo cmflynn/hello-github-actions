@@ -17,3 +17,4 @@ jobs:
     uses: ./.github/workflows/called.yml
     with:
       version: ${{ github.event.release.tag_name }}
+      service_name: ${{ matrix.target }}

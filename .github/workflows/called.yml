@@ -4,9 +4,34 @@ on:
       version:
         type: string
         default: 'latest'
+      service_name:
+        type: string
+        required: true
 
 jobs:
+  is_changed:
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get ${{ inputs.service_name }} changes
+        id: get_changes
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            services/${{ inputs.service_name }}/**
+
+      - name: List changes
+        run: |
+          echo "${{ steps.get_changes.outputs.all_changed_files }}"
+          echo "${{ steps.get_changes.outputs.any_changed }}"
+
+    outputs:
+      changed: ${{ steps.get_changes.outputs.any_changed }}
   run:
+    if: needs.is_changed.outputs.changed == 'true'
+    needs: is_changed
     runs-on: ubuntu-latest # windows-latest | macos-latest
     steps:
       - name: Checkout repository
