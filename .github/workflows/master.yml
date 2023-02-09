@@ -19,4 +19,6 @@ jobs:
 
       - run: echo ${{ secrets.JIMMY_PASSWORD }}
       - run: python main.py
+        env:
+          JIMMY_PASSWORD: ${{ secrets.JIMMY_PASSWORD }}
 
