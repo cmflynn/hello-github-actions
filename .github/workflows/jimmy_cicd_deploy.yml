@@ -31,7 +31,7 @@ jobs:
     secrets: inherit
     
   deploy_qa:
-    if: github.event.type == 'ReleaseEvent'
+    if: github.event_name == 'release'
     uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
     with:
       deploy_environment: 'qa'
