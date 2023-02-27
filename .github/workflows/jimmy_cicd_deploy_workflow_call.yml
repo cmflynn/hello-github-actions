@@ -36,6 +36,7 @@ jobs:
 
     outputs:
       changed: ${{ steps.get_changes.outputs.any_changed }}
+
   deploy:
     name: ${{ inputs.service_name }}_deploy
     needs: is_changed

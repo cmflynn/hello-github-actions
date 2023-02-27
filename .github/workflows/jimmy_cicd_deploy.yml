@@ -29,7 +29,22 @@ jobs:
       deploy_environment: 'main'
       version: 'latest'
     secrets: inherit
-    
+
+  get_approval:
+    if: github.ref_name != 'master'
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: cmflynn
+
+          # hacky... but alas https://github.com/actions/runner/issues/409
+          minimum-approvals: ${{ github.event_name == 'release' && 1 || 2  }}
+
+          issue-title: "promoting to ${{ github.ref_name }}"
+          exclude-workflow-initiator-as-approver: false
+
   deploy_qa:
     if: github.event_name == 'release'
     uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
