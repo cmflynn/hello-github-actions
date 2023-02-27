@@ -37,7 +37,7 @@ jobs:
       - uses: trstringer/manual-approval@v1
         with:
           secret: ${{ github.TOKEN }}
-          approvers: cmflynn
+          approvers: cmflynn,kapr1s
 
           # hacky... but alas https://github.com/actions/runner/issues/409
           minimum-approvals: ${{ github.event_name == 'release' && 2 || 1  }}
