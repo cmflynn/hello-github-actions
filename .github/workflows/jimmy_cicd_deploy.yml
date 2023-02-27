@@ -11,7 +11,7 @@ on:
 
 
 jobs:
- printJob:
+  printJob:
     name: Print event
     runs-on: ubuntu-latest
     steps:
