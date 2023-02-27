@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
     with:
       deploy_environment: 'qa'
-      version: github.event.release.tag_name
+      version: ${{ github.event.release.tag_name }}
     secrets: inherit
   
   deploy_uat:
