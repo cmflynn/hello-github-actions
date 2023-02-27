@@ -11,7 +11,7 @@ on:
 jobs:
 
   # deploy this first since the worker and the api will depend on kafka topics being current
-  stage_1:
+  deploy_stage_1:
     strategy:
       fail-fast: false
       matrix:
@@ -25,8 +25,8 @@ jobs:
     secrets: inherit
 
   # the api should be next as well as the worker now that the kafka topics are initialized
-  stage_2:
-    needs: stage_1
+  deploy_stage_2:
+    needs: deploy_stage_1
     strategy:
       fail-fast: false
       matrix:
