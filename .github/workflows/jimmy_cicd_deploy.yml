@@ -11,7 +11,13 @@ on:
 
 
 jobs:
-  
+  deploy:
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - run: |
+          echo ${{ github.event }} ${{ github.event.type }} 
+       
+
   deploy_main:
     if: github.ref_name == 'master'
     uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
