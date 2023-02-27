@@ -33,7 +33,6 @@ jobs:
 
     outputs:
       changed: ${{ steps.get_changes.outputs.any_changed }}
-
   run:
     needs: is_changed
     if: needs.is_changed.outputs.changed == 'true'
@@ -49,4 +48,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-     - run: echo ${{ inputs.service_name }} ${{ inputs.deploy_environment }} ${{ inputs.version }}
+      - run: |
+          echo ${{ inputs.service_name }} ${{ inputs.deploy_environment }} ${{ inputs.version }}
+       
