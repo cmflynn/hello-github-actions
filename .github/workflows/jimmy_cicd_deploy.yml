@@ -11,11 +11,15 @@ on:
 
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest # windows-latest | macos-latest
+ printJob:
+    name: Print event
+    runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo ${{ github.event }} ${{ github.event.type }} 
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
        
 
   deploy_main:
