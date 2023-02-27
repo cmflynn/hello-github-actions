@@ -1,0 +1,52 @@
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        required: true
+        type: string
+      deploy_environment:
+        required: true
+        type: string
+      version:
+        type: string
+        default: 'latest'
+
+jobs:
+  is_changed:
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get ${{ inputs.service_name }} changes
+        id: get_changes
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            ${{ inputs.service_name }}/**
+            .github/workflows/jimmy_cicd_deploy_*
+
+      - name: List changes
+        run: |
+          echo "${{ steps.get_changes.outputs.all_changed_files }}"
+          echo "${{ steps.get_changes.outputs.any_changed }}"
+
+    outputs:
+      changed: ${{ steps.get_changes.outputs.any_changed }}
+
+  run:
+    needs: is_changed
+    if: needs.is_changed.outputs.changed == 'true'
+    environment: ${{ inputs.deploy_environment }}
+    concurrency:
+      group: '${{ github.ref }}_deploy_${{ inputs.service_name }}'
+      cancel-in-progress: true
+    runs-on: ubuntu-latest # windows-latest | macos-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+     - run: echo ${{ inputs.service_name }} ${{ inputs.deploy_environment }} ${{ inputs.version }}

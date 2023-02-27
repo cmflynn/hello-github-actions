@@ -1,0 +1,43 @@
+name: jimmy Deploy
+
+on:
+  push:
+    branches:
+      - master
+      - uat
+      - prod
+  release:
+    types: [ published ]
+
+
+jobs:
+  
+  deploy_main:
+    if: github.ref_name == 'master'
+    uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
+    with:
+      deploy_environment: 'main'
+      version: 'latest'
+    secrets: inherit
+    
+  deploy_qa:
+    if: github.event.type == 'ReleaseEvent'
+    uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
+    with:
+      deploy_environment: 'qa'
+      version: github.event.release.tag_name
+    secrets: inherit
+  
+  deploy_uat:
+    if: github.ref_name == 'uat'
+    uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
+    with:
+      deploy_environment: 'uat'
+    secrets: inherit
+  
+  deploy_prod:
+    if: github.ref_name == 'prod'
+    uses: ./.github/workflows/jimmy_cicd_deploy_stages.yml
+    with:
+      deploy_environment: 'prod'
+    secrets: inherit

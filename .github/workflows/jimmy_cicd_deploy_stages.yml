@@ -1,0 +1,40 @@
+on:
+  workflow_call:
+    inputs:
+      deploy_environment:
+        required: true
+        type: string
+      version:
+        type: string
+        default: 'latest'
+
+jobs:
+
+  # deploy this first since the worker and the api will depend on kafka topics being current
+  stage_1:
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - jimmy_api
+    uses: ./.github/workflows/jimmy_cicd_deploy_workflow_call.yml
+    with:
+      service_name: ${{ matrix.target }}
+      version: ${{ inputs.version }}
+      deploy_environment: ${{ inputs.deploy_environment }}
+    secrets: inherit
+
+  # the api should be next as well as the worker now that the kafka topics are initialized
+  stage_2:
+    needs: stage_1
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - jimmy_frontend
+    uses: ./.github/workflows/jimmy_cicd_deploy_workflow_call.yml
+    with:
+      service_name: ${{ matrix.target }}
+      version: ${{ inputs.version }}
+      deploy_environment: ${{ inputs.deploy_environment }}
+    secrets: inherit
