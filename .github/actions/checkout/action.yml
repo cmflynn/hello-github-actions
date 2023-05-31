@@ -48,6 +48,8 @@ runs:
           echo "::notice::Checkout: ${{ inputs.repository }} using ${USING}"
           echo "ref-exists=true" >> $GITHUB_OUTPUT
         else
+          echo "${{ inputs.repository }} foo!"
+          echo "${{ github.repository }} bar!"
           echo "am i here?"
           if git ls-remote --heads --quiet --exit-code https://${{ inputs.token }}@github.com/${{ inputs.repository }}.git ${{ inputs.ref }}
           then
