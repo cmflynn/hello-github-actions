@@ -36,8 +36,8 @@ runs:
       run: |
         if [[ -z "${{ inputs.ref }}" ]]
         then
-          echo "${{ inputs.repository }}
-          echo "${{ github.repository }}
+          echo "${{ inputs.repository }} foo!"
+          echo "${{ github.repository }} bar!"
           if [[ "${{ inputs.repository }}" != "${{ github.repository }}" ]]
           then
             echo "hello world"
