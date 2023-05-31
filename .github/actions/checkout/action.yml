@@ -52,8 +52,8 @@ runs:
           else
             USING="${{ inputs.default-branch }}"
             echo "::notice::Checkout: ${{ inputs.repository }} does not have ref ${{ inputs.ref }} (fallback to ${USING})"
-            echo "::set-output name=ref-exists::false"
-            echo "::set-output name=default-branch::${USING}"
+            echo "ref-exists=false" >> $GITHUB_OUTPUT
+            echo "default-branch=${USING}" >> $GITHUB_OUTPUT
           fi
         fi
 
