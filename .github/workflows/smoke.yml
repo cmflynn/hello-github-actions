@@ -8,8 +8,7 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: ./.github/actions/checkout
+      - uses: ./.github/actions/checkout
         with:
           repository: cmflynn/unix-setup
           ref: ${{ inputs.branch }}
