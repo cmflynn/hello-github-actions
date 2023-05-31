@@ -17,6 +17,7 @@ jobs:
         id: branch_checkout
         uses: actions/checkout@v3
         with:
+          repository: cmflynn/${{ inputs.repo }}
           ref: ${{ inputs.branch }}
           path: ${{ inputs.repo }}
 
@@ -24,6 +25,7 @@ jobs:
         if: steps.branch_checkout.outcome == 'failure'
         uses: actions/checkout@v3
         with:
+          repository: cmflynn/${{ inputs.repo }}
           ref: feature/some-trunk
           path: ${{ inputs.repo }}
 
