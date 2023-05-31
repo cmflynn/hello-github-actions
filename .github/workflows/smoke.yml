@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - smoke
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    outputs:
+      paths: ${{ steps.list-files.outputs.paths }}
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Checkout tools repo
+        uses: actions/checkout@v3
+        with:
+          repository: cmflynn/unix-setup
+          path: unix-setup
+
+      - run: ls
