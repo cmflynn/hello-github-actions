@@ -27,9 +27,9 @@ jobs:
           ref: feature/some-trunk
           path: ${{ inputs.repo }}
 
-      - run: ls -al
+      - run: ls -al ${{ inputs.repo }}
 
       - uses: actions/upload-artifact@master
         with:
           name: ${{ inputs.repo }}-${{ inputs.branch }}
-          path: ${{ inputs.repo }}
+          path: ./${{ inputs.repo }}
