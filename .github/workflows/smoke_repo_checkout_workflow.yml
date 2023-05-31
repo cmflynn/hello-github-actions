@@ -20,7 +20,7 @@ jobs:
           ref: ${{ inputs.branch }}
 
       - name: Checkout repository at trunk
-        if: failure() && steps.branch_checkout.conclusion == 'failure'
+        if: steps.branch_checkout.conclusion == 'failure'
         uses: actions/checkout@v3
         with:
           ref: feature/some-trunk
