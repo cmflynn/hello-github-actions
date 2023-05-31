@@ -13,12 +13,13 @@ jobs:
     runs-on: ubuntu-latest # windows-latest | macos-latest
     steps:
       - name: Checkout repository at branch
+        id: branch_checkout
         uses: actions/checkout@v3
         with:
           ref: ${{ inputs.branch }}
 
       - name: Checkout repository at trunk
-        if: failure() && steps.checkout.conclusion == 'failure'
+        if: failure() && steps.branch_checkout.conclusion == 'failure'
         uses: actions/checkout@v3
         with:
           ref: feature/some-trunk
