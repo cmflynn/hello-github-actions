@@ -48,7 +48,7 @@ runs:
           if git ls-remote --heads --quiet --exit-code https://${{ inputs.token }}@github.com/${{ inputs.repository }}.git ${{ inputs.ref }}
           then
             echo "::notice::Checkout: ${{ inputs.repository }} using ${{ inputs.ref }}"
-            echo "::set-output name=ref-exists::true"
+            echo "ref-exists=true" >> $GITHUB_OUTPUT
           else
             USING="${{ inputs.default-branch }}"
             echo "::notice::Checkout: ${{ inputs.repository }} does not have ref ${{ inputs.ref }} (fallback to ${USING})"
