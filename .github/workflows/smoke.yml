@@ -20,6 +20,9 @@ jobs:
           ref: ${{ github.ref_name }}
           path: markdown-cheatsheet
 
+      - run: ls -al unix-setup
+      - run: ls -al markdown-cheatsheet
+
 #  setup:
 #    strategy:
 #      fail-fast: false
