@@ -38,6 +38,7 @@ runs:
         then
           if [[ "${{ inputs.repository }}" != "${{ github.repository }}" ]]
           then
+            echo "hello world"
             USING="default branch"
           else
             USING="${{ inputs.default-branch }}"
