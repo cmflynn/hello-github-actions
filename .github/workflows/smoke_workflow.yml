@@ -35,3 +35,4 @@ jobs:
         with:
           name: ${{ inputs.repo }}-${{ inputs.branch }}
           path: ./${{ inputs.repo }}
+          retention-days: 1
