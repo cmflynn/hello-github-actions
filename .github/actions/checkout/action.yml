@@ -34,33 +34,15 @@ runs:
       env:
         GH_TOKEN: ${{ inputs.token }}
       run: |
-        if [[ -z "${{ inputs.ref }}" ]]
+        if git ls-remote --heads --quiet --exit-code https://${{ inputs.token }}@github.com/${{ inputs.repository }}.git ${{ inputs.ref }}
         then
-          echo "${{ inputs.repository }} foo!"
-          echo "${{ github.repository }} bar!"
-          if [[ "${{ inputs.repository }}" != "${{ github.repository }}" ]]
-          then
-            echo "hello world"
-            USING="default branch"
-          else
-            USING="${{ inputs.default-branch }}"
-          fi
-          echo "::notice::Checkout: ${{ inputs.repository }} using ${USING}"
+          echo "::notice::Checkout: ${{ inputs.repository }} using ${{ inputs.ref }}"
           echo "ref-exists=true" >> $GITHUB_OUTPUT
         else
-          echo "${{ inputs.repository }} foo!"
-          echo "${{ github.repository }} bar!"
-          echo "am i here?"
-          if git ls-remote --heads --quiet --exit-code https://${{ inputs.token }}@github.com/${{ inputs.repository }}.git ${{ inputs.ref }}
-          then
-            echo "::notice::Checkout: ${{ inputs.repository }} using ${{ inputs.ref }}"
-            echo "ref-exists=true" >> $GITHUB_OUTPUT
-          else
-            USING="${{ inputs.default-branch }}"
-            echo "::notice::Checkout: ${{ inputs.repository }} does not have ref ${{ inputs.ref }} (fallback to ${USING})"
-            echo "ref-exists=false" >> $GITHUB_OUTPUT
-            echo "default-branch=${USING}" >> $GITHUB_OUTPUT
-          fi
+          USING="${{ inputs.default-branch }}"
+          echo "::notice::Checkout: ${{ inputs.repository }} does not have ref ${{ inputs.ref }} (fallback to ${USING})"
+          echo "ref-exists=false" >> $GITHUB_OUTPUT
+          echo "default-branch=${USING}" >> $GITHUB_OUTPUT
         fi
 
     - if: steps.repo.outputs.ref-exists == 'true'
