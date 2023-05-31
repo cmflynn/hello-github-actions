@@ -19,4 +19,4 @@ jobs:
           repository: cmflynn/unix-setup
           path: unix-setup
 
-      - run: ls
+      - run: ls -al unix-setup
