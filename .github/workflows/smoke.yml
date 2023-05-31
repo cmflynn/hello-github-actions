@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Checkout tools repo
+      - name: Checkout other repo
         uses: actions/checkout@v3
         with:
           repository: cmflynn/unix-setup
