@@ -15,6 +15,7 @@ jobs:
           ref: feature/fx
           path: mysolomeo_common
           token: ${{ secrets.DW_TOKEN }}
+          default-branch: feature/fx
 
       - uses: ./.github/actions/checkout
         name: checkout unix-setup
