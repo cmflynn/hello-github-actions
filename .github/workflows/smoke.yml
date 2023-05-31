@@ -4,20 +4,21 @@ on:
       - smoke
 
 jobs:
+  setup:
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - unix-setup
+          - markdown-cheatsheet
+    uses: ./.github/workflows/smoke_repo_checkout_workflow.yml
+    with:
+      repo: ${{ matrix.target }}
+      branch: ${{ github.ref_name }}
+    secrets: inherit
+
   smoke:
+    needs: setup
     runs-on: ubuntu-latest
-    outputs:
-      paths: ${{ steps.list-files.outputs.paths }}
     steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Checkout other repo
-        uses: actions/checkout@v3
-        with:
-          repository: cmflynn/unix-setup
-          path: unix-setup
-          ref: ${{ github.ref_name }}
-
-      - run: ls -al unix-setup
+      - run: ls -al
