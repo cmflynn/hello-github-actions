@@ -50,7 +50,7 @@ runs:
             echo "::notice::Checkout: ${{ inputs.repository }} using ${{ inputs.ref }}"
             echo "::set-output name=ref-exists::true"
           else
-            USING="${{ inputs.default-branch"
+            USING="${{ inputs.default-branch }}"
             echo "::notice::Checkout: ${{ inputs.repository }} does not have ref ${{ inputs.ref }} (fallback to ${USING})"
             echo "::set-output name=ref-exists::false"
             echo "::set-output name=default-branch::${USING}"
