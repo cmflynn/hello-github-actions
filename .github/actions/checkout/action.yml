@@ -22,6 +22,9 @@ inputs:
     required: false
     description: def
     type: string
+  default-branch:
+    required: true
+    type: string
 
 runs:
   using: composite
@@ -69,5 +72,5 @@ runs:
         fetch-depth: ${{ inputs.fetch-depth }}
         path: ${{ inputs.path }}
         repository: ${{ inputs.repository }}
-        ref: ${{ steps.repo.outputs.default-branch }}
+        ref: ${{ inputs.default-branch }}
         token: ${{ inputs.token }}

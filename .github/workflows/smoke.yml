@@ -12,7 +12,7 @@ jobs:
       - uses: ./.github/actions/checkout
         with:
           repository: cmflynn/unix-setup
-          ref: ${{ inputs.branch }}
+          ref: ${{ github.ref_name }}
           path: unix-setup
 
 
