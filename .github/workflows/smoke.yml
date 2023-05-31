@@ -4,11 +4,17 @@ on:
       - smoke
 
 jobs:
-
   smoke:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - uses: actions/checkout@v3
+        with:
+          repository: DriveWealth/mysolomeo_common
+          ref: feature/fx
+          path: mysolomeo_common
+          token: ${{ secrets.DW_TOKEN }}
 
       - uses: ./.github/actions/checkout
         name: checkout unix-setup
@@ -28,33 +34,3 @@ jobs:
 
       - run: ls -al unix-setup
       - run: ls -al markdown-cheatsheet
-
-#  setup:
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        target:
-#          - unix-setup
-#          - markdown-cheatsheet
-#    uses: ./.github/workflows/smoke_workflow.yml
-#    with:
-#      repo: ${{ matrix.target }}
-#      branch: ${{ github.ref_name }}
-#    secrets: inherit
-
-#  smoke:
-#    runs-on: ubuntu-latest
-#    needs: setup
-#    steps:
-#      - uses: actions/download-artifact@master
-#        with:
-#          name: unix-setup-${{ github.ref_name }}
-#          path: unix-setup
-#
-#      - uses: actions/download-artifact@master
-#        with:
-#          name: markdown-cheatsheet-${{ github.ref_name }}
-#          path: markdown-cheatsheet
-#
-#      - run: ls -al unix-setup
-#      - run: ls -al markdown-cheatsheet
