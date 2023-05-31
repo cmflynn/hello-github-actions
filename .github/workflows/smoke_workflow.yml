@@ -27,9 +27,9 @@ jobs:
           ref: feature/some-trunk
           path: ${{ inputs.repo }}
 
-      - name: Cache
-        id: cache
-        uses: actions/cache@v3
+      - run: ls -al
+
+      - uses: actions/upload-artifact@master
         with:
-          path: ${{ inputs.repo }}/*
-          key: ${{ inputs.repo }}-${{ inputs.branch}}
+          name: ${{ inputs.repo }}-${{ inputs.branch }}
+          path: ${{ inputs.repo }}

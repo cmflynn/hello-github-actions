@@ -11,14 +11,19 @@ jobs:
         target:
           - unix-setup
           - markdown-cheatsheet
-    uses: ./.github/workflows/smoke_repo_checkout_workflow.yml
+    uses: ./.github/workflows/smoke_workflow.yml
     with:
       repo: ${{ matrix.target }}
       branch: ${{ github.ref_name }}
     secrets: inherit
 
-  smoke:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - run: ls -al
+    smoke:
+      runs-on: ubuntu-latest
+      needs: setup
+      steps:
+        - uses: actions/download-artifact@master
+          with:
+            name: unix-setup-${{ github.ref_name }}
+            path: unix-setup
+
+        - run: ls -al
