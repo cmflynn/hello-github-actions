@@ -4,27 +4,27 @@ inputs:
   fetch-depth:
     default: 1
     required: false
-    type: number
   path:
     default: ''
     required: false
+    description: ef
     type: string
   repository:
     default: ${{ github.repository }}
     required: false
-    type: string
+    description: a repo
   ref:
     default: ''
+    description: abc
     required: false
-    type: string
   token:
     default: ${{ github.token }}
     required: false
+    description: def
     type: string
 
 runs:
   using: composite
-
   steps:
     - id: repo
       shell: bash
