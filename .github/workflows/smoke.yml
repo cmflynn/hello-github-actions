@@ -9,16 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: ./.github/actions/checkout
+        name: checkout unix-setup
         with:
           repository: cmflynn/unix-setup
           ref: ${{ github.ref_name }}
           path: unix-setup
+          default-branch: feature/some-trunk
+
       - uses: ./.github/actions/checkout
+        name: checkout markdown
         with:
           repository: cmflynn/markdown-cheatsheet
           ref: ${{ github.ref_name }}
           path: markdown-cheatsheet
+          default-branch: feature/some-trunk
 
       - run: ls -al unix-setup
       - run: ls -al markdown-cheatsheet
