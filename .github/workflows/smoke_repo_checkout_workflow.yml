@@ -27,9 +27,9 @@ jobs:
           ref: feature/some-trunk
           path: ${{ inputs.repo }}
 
-      - name: Cache Primes
-        id: cache-primes
-        uses: actions/cache@v2
+      - name: Cache
+        id: cache
+        uses: actions/cache@v3
         with:
-          path: ${{ inputs.repo }}
+          path: ${{ inputs.repo }}/*
           key: ${{ inputs.repo }}-${{ inputs.branch}}
