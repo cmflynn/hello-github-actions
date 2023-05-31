@@ -14,7 +14,11 @@ jobs:
           repository: cmflynn/unix-setup
           ref: ${{ github.ref_name }}
           path: unix-setup
-
+      - uses: ./.github/actions/checkout
+        with:
+          repository: cmflynn/markdown-cheatsheet
+          ref: ${{ github.ref_name }}
+          path: markdown-cheatsheet
 
 #  setup:
 #    strategy:
