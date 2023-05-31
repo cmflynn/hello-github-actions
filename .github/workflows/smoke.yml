@@ -26,4 +26,10 @@ jobs:
           name: unix-setup-${{ github.ref_name }}
           path: unix-setup
 
-      - run: ls -al
+      - uses: actions/download-artifact@master
+        with:
+          name: markdown-cheatsheet-${{ github.ref_name }}
+          path: markdown-cheatsheet
+
+      - run: ls -al unix-setup
+      - run: ls -al markdown-cheatsheet
