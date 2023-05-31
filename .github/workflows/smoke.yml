@@ -18,6 +18,6 @@ jobs:
         with:
           repository: cmflynn/unix-setup
           path: unix-setup
-          ref: smoke
+          ref: ${{ github.ref_name }}
 
       - run: ls -al unix-setup
